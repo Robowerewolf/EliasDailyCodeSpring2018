@@ -16,38 +16,41 @@ char foodDrop(char location);
 int main() {
 
 	srand(time(NULL));
-	char location = 'd'; //test with d and f
-	cout << foodDrop(location) << endl;;
-	system("pause");
+	//char location = 'd'; //test with d and f
+	//cout << foodDrop(location) << endl;;
+	//system("pause");
 
-	Pokemon charmander;
-	charmander.InitPokemon(5);
-	charmander.eat(foodDrop('f'));
+	//while (1) {
+		Pokemon charmander;
+		charmander.InitPokemon(5);
+		charmander.eat(foodDrop('f'));
 
-	Pokemon squirtle;
-	squirtle.InitPokemon(5);
-	squirtle.eat(foodDrop('m'));
+		Pokemon squirtle;
+		squirtle.InitPokemon(5);
+		squirtle.eat(foodDrop('d'));
 
-	Pokemon bulbasaur;
-	bulbasaur.InitPokemon(5);
-	bulbasaur.eat(foodDrop('b'));
+		Pokemon bulbasaur;
+		bulbasaur.InitPokemon(5);
+		bulbasaur.eat(foodDrop('f'));
 
-	charmander.PrintInfo();
 
-	squirtle.PrintInfo();
+		charmander.PrintInfo();
 
-	bulbasaur.PrintInfo();
+		squirtle.PrintInfo();
 
+		bulbasaur.PrintInfo();
+
+	//}
 }
 void Pokemon::eat(char food) {
 	if (food == 'b')
 		hp += 3;
 	else if (food == 'f')
-		hp += 3;
+		hp += 5;
 	else if (food == 'm')
-		hp += 3;
+		hp += 1;
 	else if (food == 'c')
-		hp += 3;
+		hp += 30;
 }
 void Pokemon::InitPokemon(int num) {
 	hp = num;
