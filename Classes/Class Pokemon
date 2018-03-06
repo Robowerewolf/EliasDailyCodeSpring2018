@@ -1,0 +1,92 @@
+#include<iostream>
+#include<Windows.h>
+#include <ctime>
+using namespace std;
+
+class Pokemon {
+private:
+	int hp;
+public:
+	void eat(char c);
+	void InitPokemon(int num);
+	void PrintInfo();
+};
+char foodDrop(char location);
+
+int main() {
+
+	srand(time(NULL));
+	char location = 'd'; //test with d and f
+	cout << foodDrop(location) << endl;;
+	system("pause");
+
+	Pokemon charmander;
+	charmander.InitPokemon(5);
+	charmander.eat(foodDrop('f'));
+
+	Pokemon squirtle;
+	squirtle.InitPokemon(5);
+	squirtle.eat(foodDrop('m'));
+
+	Pokemon bulbasaur;
+	bulbasaur.InitPokemon(5);
+	bulbasaur.eat(foodDrop('b'));
+
+	charmander.PrintInfo();
+
+	squirtle.PrintInfo();
+
+	bulbasaur.PrintInfo();
+
+}
+void Pokemon::eat(char food) {
+	if (food == 'b')
+		hp += 3;
+	else if (food == 'f')
+		hp += 3;
+	else if (food == 'm')
+		hp += 3;
+	else if (food == 'c')
+		hp += 3;
+}
+void Pokemon::InitPokemon(int num) {
+	hp = num;
+}
+void Pokemon::PrintInfo() {
+	cout << "your pokemon's health is " << hp << endl;
+}
+char foodDrop(char location) {
+
+	int num = rand() % 100 + 1;
+
+	if (location == 'f') {
+		if (num <= 50) {
+			cout << "you got a berry!" << endl;
+			return 'b';
+		}
+		else {
+			cout << "you got a mushroom!" << endl;
+			return 'm';
+
+		}
+	}
+	else if (location == 'd') {
+		if (num <= 20) {
+			cout << "You got a berry!" << endl;
+			return 'b';
+		}
+		else if (num <= 40) {
+			cout << "You got a fruit!" << endl;
+			return 'f';
+		}
+		else if (num < 40) {
+			cout << "You found some cheese?" << endl;
+			return 'c';
+		}
+	}
+
+
+	else
+		cout << "invalid location" << endl;
+
+}
