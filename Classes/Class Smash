@@ -1,0 +1,85 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Smash {
+private:
+	int lives;
+	string name;
+
+public:
+	void InitSmash(int x, int y, string z);
+	void PrintInfo();
+	void TakeDamage(int num);
+
+protected:
+	int percent;
+};
+
+
+class Shulk : public Smash {
+private:
+	int damCount;
+public:
+	void Counter();
+};
+
+
+
+int knockback(int D, int w, int p, double s, int b, double r);
+
+int main() {
+
+	Smash Pikachu;
+	Pikachu.InitSmash(0, 3, "Pikachu");
+	Pikachu.PrintInfo();
+	Pikachu.TakeDamage(knockback(30, 75, 20, 1.5, 20, 1.2));
+	Pikachu.PrintInfo();
+
+	Smash LittleMac;
+	LittleMac.InitSmash(0, 3, "Little Mac");
+	LittleMac.PrintInfo();
+	LittleMac.TakeDamage(knockback(30, 75, 20, 1.5, 20, 1.2));
+	LittleMac.PrintInfo();
+
+	Shulk player;
+	player.InitSmash(0, 3, "Shulk");
+	player.PrintInfo();
+	player.TakeDamage(knockback(30, 75, 20, 1.5, 20, 1.2));
+	player.PrintInfo();
+	player.Counter();
+
+
+	Pikachu.PrintInfo();
+	LittleMac.PrintInfo();
+	player.PrintInfo();
+}
+void Smash::InitSmash(int x, int y, string z) {
+	percent = x;
+	lives = y;
+	name = z;
+}
+int knockback(int D, int w, int p, double s, int b, double r) {
+
+	int num;
+	cout << "running damage calculator..." << endl << endl;
+	num = ((((7 * (D + 2) * (D + p)) / (w + 100) + 9) * 2 * s) + b) * r;
+	cout << "damage calculated is " << num << endl;
+	return num;
+}
+
+void Smash::TakeDamage(int num) {
+	percent += num;
+
+
+}
+void Shulk::Counter() {
+	damCount = percent;
+	percent = 0;
+	cout << "You have countered " << damCount << " damage" << endl;
+}
+void Smash::PrintInfo() {
+	cout << endl << "You are " << name << endl;
+	cout << "Your damage percentage is:" << percent << "%" << endl;
+	cout << "You have " << lives << " lives left" << endl;
+}
