@@ -1,0 +1,49 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+using namespace std;
+
+int main() {
+	ifstream read("Prob03.in.txt");
+
+	int input;
+	int size;
+
+	vector<int> numbers;
+	vector<int>::iterator i;
+	vector<int>::iterator i2;
+
+	if (read.is_open()) {
+		read >> size;
+		cout << "size is " << size << endl;
+
+		for (int i = 0; i < size * 2; i++) {
+			//cout << "i is " << i << endl;
+			read >> input;
+			//cout << num<<" ";
+			numbers.push_back(input);
+		}
+
+		cout << endl << endl;
+		for (i = numbers.begin(); i != numbers.end() - 1; i += 2) {
+
+			i2 = i;
+
+			if (i2 == numbers.end()) {
+				cout << "attempting to break";
+				break;
+			}
+			advance(i2, 1);
+
+			cout << *i + *i2 << " , " << *i * *i2 << endl;
+		}
+		cout << "flag 1" << endl;
+		read.close();
+	}
+	else cout << "Unable to open file";
+
+	system("pause");
+	return 0;
+
+}
