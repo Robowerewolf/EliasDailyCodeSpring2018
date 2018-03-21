@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+class Car {
+public:
+	void InitCar(int a, string b, string c, bool d, int e);
+	void PrintInfo();
+private:
+	int fuelAmount;
+	string brand;
+	string color;
+	bool Fourwheel;
+	int num;
+};
+int main() {
+	vector <Car> garage;
+	vector <Car> ::iterator i;
+
+	Car C1;
+	C1.InitCar(100, "Honda", "green", false, 1);
+	Car C2;
+	C2.InitCar(200, "Fiat", "black", false, 2);
+	Car C3;
+	C3.InitCar(300, "Ford", "Red", true, 3);
+	Car C4;
+	C4.InitCar(400, "Corvette", "Blue", false, 4);
+	Car C5;
+	C5.InitCar(500, "McLaren", "white", false, 5);
+
+	garage.push_back(C1);
+	garage.push_back(C2);
+	garage.push_back(C3);
+	garage.push_back(C4);
+	garage.push_back(C5);
+
+	for (i = garage.begin(); i != garage.end(); i++) {
+		i->PrintInfo();
+	}
+	system("pause");
+}
+void Car::InitCar(int a, string b, string c, bool d, int e) {
+	fuelAmount = a;
+	brand = b;
+	color = c;
+	Fourwheel = d;
+	num = e;
+}
+void Car::PrintInfo() {
+	cout << "Car " << num << " : " << endl;
+	cout << "Fuel level is at " << fuelAmount << endl;
+	cout << "The car is a " << brand << endl;
+	cout << "It is " << color << endl;
+	cout << "Four Wheel drive : " << Fourwheel << endl;
+}
