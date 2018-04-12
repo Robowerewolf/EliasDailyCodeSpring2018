@@ -1,0 +1,111 @@
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
+#include <iostream>
+#include <stdio.h>
+#include <ctime>
+using namespace std;
+
+const float FPS = 60;
+
+int main() {
+	srand(time(NULL));
+
+	al_init();
+	al_init_primitives_addon();
+
+	ALLEGRO_DISPLAY*display = NULL;
+	ALLEGRO_EVENT_QUEUE *event_queue = NULL;
+	ALLEGRO_TIMER *timer = NULL;
+
+	bool redraw = true;
+
+	if (!al_init()) {
+		fprintf(stderr, "failed to initialize allegro!\n");
+		return -1;
+	}
+
+	if (!al_install_mouse()) {
+		fprintf(stderr, "failed to initialize the mouse!\n");
+		return -1;
+	}
+
+	timer = al_create_timer(1.0 / FPS);
+	if (!timer) {
+		fprintf(stderr, "failed to create timer!\n");
+		return -1;
+	}
+
+	display = al_create_display(800, 800);
+
+	if (!display) {
+		fprintf(stderr, "failed to create display!\n");
+		al_destroy_timer(timer);
+		return -1;
+	}
+
+	al_set_target_bitmap(al_get_backbuffer(display));
+
+	event_queue = al_create_event_queue();
+	if (!event_queue) {
+		fprintf(stderr, "failed to create event_queue!\n");
+		al_destroy_display(display);
+		al_destroy_timer(timer);
+		return -1;
+	}
+	al_register_event_source(event_queue, al_get_display_event_source(display));
+
+	al_register_event_source(event_queue, al_get_timer_event_source(timer));
+
+	al_register_event_source(event_queue, al_get_mouse_event_source());
+
+	al_start_timer(timer);
+
+	while (1)
+	{
+		ALLEGRO_EVENT ev;
+		al_wait_for_event(event_queue, &ev);
+
+		if (ev.type == ALLEGRO_EVENT_TIMER) {
+			redraw = true;
+		}
+		//else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
+		//	break;
+		//}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+
+			if(ev.mouse.x <400 && ev.mouse.y <400)
+			al_draw_filled_rectangle(0, 0, 400, 400, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+
+			if (ev.mouse.x >400 && ev.mouse.y <400)
+			al_draw_filled_rectangle(400, 0, 800, 400, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+
+			if (ev.mouse.x <400 && ev.mouse.y >400)
+			al_draw_filled_rectangle(0, 400, 400, 800, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+
+			if (ev.mouse.x >400 && ev.mouse.y >400)
+			al_draw_filled_rectangle(400, 400, 800, 800, al_map_rgb(rand() % 255, rand() % 255, rand() % 255));
+
+		}
+		else if (ev.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP) {
+	
+		}
+
+		if (redraw && al_is_event_queue_empty(event_queue)) {
+			redraw = false;
+
+			//al_clear_to_color(al_map_rgb(0, 0, 0));
+
+			//al_draw_bitmap(bouncer, bouncer_x, bouncer_y, 0);
+
+			al_flip_display();
+		}
+	}//game loop
+
+	
+
+	al_destroy_timer(timer);
+	al_destroy_display(display);
+	al_destroy_event_queue(event_queue);
+
+	return 0;
+}
